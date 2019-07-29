@@ -83,7 +83,7 @@ def menu():
                                 sheet = load_sheet(filename)
                                 plaintext = get_plaintext()
                                 if len(plaintext) > lines:
-                                    print(Fore.GREEN + Back.RED + 'ERROR. The length of the message is longer than the OTP. This message will not be encrypted. Code 02')
+                                    print(Fore.RED + 'ERROR. The length of the message is longer than the OTP. This message will not be encrypted. Code 02')
                                     print(Style.RESET_ALL)
                                     ch = input('\'A\'bort, \'R\'etry, \'I\'gnore?')
                                     if ch == 'A':
