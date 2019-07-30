@@ -62,8 +62,8 @@ def decrypt(ciphertext, sheet):
         return plaintext
 
 def verify(encoded):
-    dat = open(encoded + ".edat", "r")
-    odat = open(encoded + ".odat", "r")
+    dat = open("." + encoded + ".edat", "r")
+    odat = open("." + encoded + ".odat", "r")
     e = 0
     s = 0
     data = dat.read()
@@ -113,11 +113,11 @@ def menu():
                                 filename = input('What will be the name of the encrypted file? ')
                                 data = filename + ".edat"
                                 save_file(filename, ciphertext)
-                                datafile = open(data,  "w")
+                                datafile = open("." + data,  "w")
                                 fo = open(ofile, "r")
                                 datafile.write(ofile)
                                 datafile.close()
-                                datafile = open(filename + ".odat","w")
+                                datafile = open("." + filename + ".odat","w")
                                 datafile.write(fo.readline())
                                 datafile.close()
                                 fo.close()
