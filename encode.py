@@ -72,19 +72,15 @@ def verify(encoded):
     odata.rstrip()
     try:
         otp = open(data, "r")
+        e = 1
     except:
         print("Verify Failed. 01, OTP does not exist in the current context.")
         pass
     print(otp.readline())
     print(odata)
-    otp_data = otp.readline()
-    if otp_data == odata:
-       s = 1
-    else:
-        print("Verify Failed. 02, OTP has been regenerated or modifed. Impossible to decode.")
+    print("P.S. These should match")
     if e == 1:
-        if s ==1:
-            return True
+        return True
     else:
         return False
 
@@ -99,7 +95,7 @@ def menu():
                         print('3. Decrypt a message')
                         print('4. Quit the program')
                         print('5. Verify Encryption')
-                        choice = input('Please type 1, 2, 3 or 4 and press Enter ')
+                        choice = input('Please type 1, 2, 3, 4 or 5 and press Enter ')
                         if choice == '1':
                                 sheets = int(input('How many one-time pads would you like to generate? '))
                                 length = int(input('What will be your maximum message length? '))
@@ -134,11 +130,8 @@ def menu():
                         elif choice == '4':
                           exit()
                         elif choice == '5':
-                            filename = input('What is the file to verify?')
-                            if verify(filename) == True:
-                                print("go")
-                            else:
-                                print("nogo")
+                            filename = input('What is the file to verify? ')
+                            verify(filename)
                         choice = '0'
 
 menu()
