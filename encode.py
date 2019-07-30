@@ -1,9 +1,9 @@
-from random import randint
+import random
 from time import sleep
 from colorama import Fore, Back, Style
 
 
-ALPHABET = ' abcdefghijklmnopqrstuvwxyz!?.'
+ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
 def count_lines(filename):
   i=0
