@@ -62,19 +62,26 @@ def decrypt(ciphertext, sheet):
         return plaintext
 
 def verify(encoded):
-    dat = open(encoded, "r")
-    datLines = []
+    dat = open(encoded + ".edat", "r")
+    odat = open(encoded + ".odat", "r")
     e = 0
     s = 0
-    datLines = dat.readlines()
+    data = dat.read()
+    data.rstrip()
+    odata = odat.read()
+    odata.rstrip()
     try:
-        otp = open(datLines[0], "r")
-        e = 1
+        otp = open(data, "r")
     except:
-        e = 0
+        print("Verify Failed. 01, OTP does not exist in the current context.")
         pass
-    if otp.readline() == datLines[1]:
+    print(otp.readline())
+    print(odata)
+    otp_data = otp.readline()
+    if otp_data == odata:
        s = 1
+    else:
+        print("Verify Failed. 02, OTP has been regenerated or modifed. Impossible to decode.")
     if e == 1:
         if s ==1:
             return True
@@ -108,7 +115,10 @@ def menu():
                                 save_file(filename, ciphertext)
                                 datafile = open(data,  "w")
                                 fo = open(ofile, "r")
-                                datafile.write(ofile + "\n" + fo.readline())
+                                datafile.write(ofile)
+                                datafile.close()
+                                datafile = open(filename + ".odat","w")
+                                datafile.write(fo.readline())
                                 datafile.close()
                                 fo.close()
                         elif choice == '3':
@@ -125,7 +135,10 @@ def menu():
                           exit()
                         elif choice == '5':
                             filename = input('What is the file to verify?')
-                            verify(filename)
+                            if verify(filename) == True:
+                                print("go")
+                            else:
+                                print("nogo")
                         choice = '0'
 
 menu()
