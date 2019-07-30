@@ -61,9 +61,28 @@ def decrypt(ciphertext, sheet):
                         plaintext += ALPHABET[decrypted]
         return plaintext
 
+def verify(encoded):
+    dat = open(encoded, "r")
+    datLines = []
+    e = 0
+    s = 0
+    datLines = dat.readlines()
+    try:
+        otp = open(datLines[0], "r")
+        e = 1
+    except:
+        e = 0
+        pass
+    if otp.readline() == datLines[1]:
+       s = 1
+    if e == 1:
+        if s ==1:
+            return True
+    else:
+        return False
 
 def menu():
-        choices = ['1', '2', '3', '4']
+        choices = ['1', '2', '3', '4', '5']
         choice = '0'
         while True:
                 while choice not in choices:
@@ -72,6 +91,7 @@ def menu():
                         print('2. Encrypt a message')
                         print('3. Decrypt a message')
                         print('4. Quit the program')
+                        print('5. Verify Encryption')
                         choice = input('Please type 1, 2, 3 or 4 and press Enter ')
                         if choice == '1':
                                 sheets = int(input('How many one-time pads would you like to generate? '))
@@ -79,23 +99,18 @@ def menu():
                                 generate_otp(sheets, length)
                         elif choice == '2':
                                 filename = input('Type in the filename of the OTP you want to use ')
-                                lines = count_lines(filename)
+                                ofile = filename
                                 sheet = load_sheet(filename)
                                 plaintext = get_plaintext()
-                                if len(plaintext) > lines:
-                                    print(Fore.RED + 'ERROR. The length of the message is longer than the OTP. This message will not be encrypted. Code 02')
-                                    print(Style.RESET_ALL)
-                                    ch = input('\'A\'bort, \'R\'etry, \'I\'gnore?')
-                                    if ch == 'A':
-                                      exit() 
-                                    elif ch == 'R':
-                                      choice =2
-                                      menu()
-                                    elif ch == 'I':
-                                      sleep(0.000000001)
                                 ciphertext = encrypt(plaintext, sheet)
                                 filename = input('What will be the name of the encrypted file? ')
+                                data = filename + ".edat"
                                 save_file(filename, ciphertext)
+                                datafile = open(data,  "w")
+                                fo = open(ofile, "r")
+                                datafile.write(ofile + "\n" + fo.readline())
+                                datafile.close()
+                                fo.close()
                         elif choice == '3':
                                 filename = input('Type in the filename of the OTP you want to use ')
                                 sheet = load_sheet(filename)
@@ -105,9 +120,12 @@ def menu():
                                 print('The message reads:')
                                 print('')
                                 print(plaintext)
+                                verify(filename)
                         elif choice == '4':
                           exit()
-
+                        elif choice == '5':
+                            filename = input('What is the file to verify?')
+                            verify(filename)
                         choice = '0'
 
 menu()
