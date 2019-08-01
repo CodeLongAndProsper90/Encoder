@@ -46,7 +46,7 @@ def encrypt(plaintext, sheet):
                 if character not in ALPHABET:
                         ciphertext += character
                 else:
-                        encrypted = (ALPHABET.index(character) + int(sheet[position])) % 29
+                        encrypted = (ALPHABET.index(character) + int(sheet[position])) % 26
                         ciphertext += ALPHABET[encrypted]
         return ciphertext
 
