@@ -76,11 +76,10 @@ def verify(encoded):
     except:
         print("Verify Failed. 01, OTP does not exist in the current context.")
         pass
-    print(otp.readline())
-    print(odata)
-    print("P.S. These should match")
+    da = int(otp.readline()) - int(odata)
     if e == 1:
-        return True
+        if da == 0:
+            return True
     else:
         return False
 
@@ -89,7 +88,7 @@ def menu():
         choice = '0'
         while True:
                 while choice not in choices:
-                        print('What would you like to do?')
+                        print('\nWhat would you like to do?')
                         print('1. Generate one-time pads')
                         print('2. Encrypt a message')
                         print('3. Decrypt a message')
@@ -131,7 +130,12 @@ def menu():
                           exit()
                         elif choice == '5':
                             filename = input('What is the file to verify? ')
-                            verify(filename)
+                            if verify(filename) ==  True:
+                                sleep(1)
+                                print(Fore.GREEN + "\nVerify passed"+Style.RESET_ALL)
+                            else:
+                                sleep(1)
+                                print(Fore.RED + "\nVerify Failed."+Style.RESET_ALL)
                         choice = '0'
 
 menu()
